@@ -2,6 +2,7 @@ const addButton = document.getElementById('addButton');
 const inputIngredient = document.getElementById('inputIngredient');
 
 const ingredients = [];
+let ingredientCounter = 1;
 
 const printToDom = (divId, textToPrint) => {
     const selectedDiv = document.getElementById(divId);
@@ -12,10 +13,12 @@ const addIngredient = (e) => {
     e.preventDefault();
     const inputText = inputIngredient.value;
     const newIngredient = {
-        item: inputText
+        item: inputText,
+        id: `ingredient${ingredientCounter}`
     };
     ingredients.push(newIngredient);
-    //printToDom('ingredient-container', inputText);
+    ingredientCounter++;
+    printToDom('ingredient-container', inputText);
     domStringBuilder(ingredients);
     inputIngredient.value = ``;
 };
@@ -26,7 +29,7 @@ const domStringBuilder = (arrayToPrint) => {
       domString += `<div class="card col-3">`;
       domString += `  <div class="card-body">`;
       domString += `    <h5 class="card-title">${ingredient.item}</h5>`;
-      //domString += `    <a href="#" class="btn btn-primary">Delete</a>`;
+      domString += `    <a class="btn btn-danger deleteButton" id=${ingredient.id}>Delete</a>`;
       domString += `  </div>`;
       domString += `</div>`;
     });
