@@ -20,7 +20,26 @@ const addIngredient = (e) => {
     ingredientCounter++;
     printToDom('ingredient-container', inputText);
     domStringBuilder(ingredients);
+    addDeleteEvents();
     inputIngredient.value = ``;
+};
+
+const deleteFunction = (e) => {
+    const buttonId = e.target.id;
+    ingredients.forEach((ingredient, index) => {
+        if(ingredient.id === buttonId) {
+            ingredients.splice(index, 1);
+        }
+    })
+    domStringBuilder(ingredients);
+    addDeleteEvents();
+};
+
+const addDeleteEvents = () => {
+    const deleteButtons = document.getElementsByClassName('deleteButton');
+    for (let i=0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener('click', deleteFunction);
+    }
 };
 
 const domStringBuilder = (arrayToPrint) => {
